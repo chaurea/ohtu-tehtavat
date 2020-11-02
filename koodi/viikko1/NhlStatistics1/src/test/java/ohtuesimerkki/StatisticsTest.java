@@ -1,5 +1,7 @@
 package ohtuesimerkki;
 
+import java.util.*;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -33,5 +35,24 @@ public class StatisticsTest {
     public void setUp(){
         // luodaan Statistics-olio joka käyttää "stubia"
         stats = new Statistics(readerStub);
+        Statistics stats2 = new Statistics();
     }  
+
+    @Test
+    public void search1() {
+        stats.search("Kurri");
+        stats.search("AAAAAAA");
+    }
+
+    @Test
+    public void search2() {
+        stats.team("EDM");
+    }
+
+    @Test
+    public void topscore() {
+        stats.topScorers(2);
+    }
+
+
 }

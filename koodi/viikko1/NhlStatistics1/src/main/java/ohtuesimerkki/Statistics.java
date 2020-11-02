@@ -8,9 +8,12 @@ import java.util.List;
 public class Statistics {
 
     private List<Player> players;
+    public Statistics() {
+       Reader reader = new PlayerReader("https://nhlstatisticsforohtu.herokuapp.com/players.txt");
+       players = reader.getPlayers();       
+   }
 
     public Statistics(Reader reader) {
-         reader = new PlayerReader("https://nhlstatisticsforohtu.herokuapp.com/players.txt");
         players = reader.getPlayers();       
     }
 
