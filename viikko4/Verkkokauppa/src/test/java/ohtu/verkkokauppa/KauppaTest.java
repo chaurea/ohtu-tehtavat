@@ -148,6 +148,7 @@ public class KauppaTest {
         k.lisaaKoriin(1);  
         k.poistaKorista(1);  
         k.tilimaksu("pekka", "12345");
+        
 
         verify(pankki).tilisiirto(eq("pekka"), eq(1), eq("12345"), eq("33333-44455"), eq(5));   //(String nimi, int viitenumero, String tililta, String tilille, int summ
     }
