@@ -99,4 +99,58 @@ public class KauppaTest {
         verify(pankki).tilisiirto(eq("pekka"), eq(1), eq("12345"), eq("33333-44455"), eq(5));   //(String nimi, int viitenumero, String tililta, String tilille, int summ
     }
 
+    
+    @Test
+    public void aloitetaanAsiointiNollaa() {
+        when(viite.uusi()).thenReturn(1);
+        when(varasto.saldo(1)).thenReturn(5); 
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
+
+        Kauppa k = new Kauppa(varasto, pankki, viite);              
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);  
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);  
+        k.tilimaksu("pekka", "12345");
+
+        verify(pankki).tilisiirto(eq("pekka"), eq(1), eq("12345"), eq("33333-44455"), eq(5));   //(String nimi, int viitenumero, String tililta, String tilille, int summ
+    }
+
+    @Test
+    public void viiteNumeroKaikille() {
+        when(viite.uusi()).thenReturn(2);
+        when(varasto.saldo(1)).thenReturn(5); 
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
+
+        Kauppa k = new Kauppa(varasto, pankki, viite);              
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);  
+        k.tilimaksu("aaaa", "12345");
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);  
+        k.tilimaksu("pekka", "12345");
+
+        verify(pankki).tilisiirto(eq("pekka"), eq(2), eq("12345"), eq("33333-44455"), eq(5));   //(String nimi, int viitenumero, String tililta, String tilille, int summ
+    }
+
+    
+    @Test
+    public void poistoKorista() {
+        when(viite.uusi()).thenReturn(1);
+        when(varasto.saldo(1)).thenReturn(5); 
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
+
+        Kauppa k = new Kauppa(varasto, pankki, viite);              
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);  
+        k.poistaKorista(1);  
+        k.tilimaksu("pekka", "12345");
+
+        verify(pankki).tilisiirto(eq("pekka"), eq(1), eq("12345"), eq("33333-44455"), eq(5));   //(String nimi, int viitenumero, String tililta, String tilille, int summ
+    }
+
+
 }
