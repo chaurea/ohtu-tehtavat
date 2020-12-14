@@ -16,23 +16,21 @@ public class Paaohjelma {
                     + "\nmuilla valinnoilla lopetataan");
 
             String vastaus = scanner.nextLine();
-            if (vastaus.endsWith("a")) {
+            if (vastaus.endsWith("a") || vastaus.endsWith("b") || vastaus.endsWith("c")) {
                 System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
+            }
+            if (vastaus.endsWith("a")) {
                 KPSPelaajaVsPelaaja kaksinpeli = new KPSPelaajaVsPelaaja();
                 kaksinpeli.pelaa();
             } else if (vastaus.endsWith("b")) {
-                System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
                 KPSTekoaly yksinpeli = new KPSTekoaly();
                 yksinpeli.pelaa();
             } else if (vastaus.endsWith("c")) {
-                System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
                 KPSParempiTekoaly pahaYksinpeli = new KPSParempiTekoaly();
                 pahaYksinpeli.pelaa();
             } else {
                 break;
             }
-
         }
-
     }
 }
